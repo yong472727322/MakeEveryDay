@@ -17,6 +17,21 @@ import com.jcraft.jsch.Session;
  */
 public class SSHLinuxUtil {
 
+	/**
+	 * 重启服务器
+	 * @throws Exception
+	 */
+	public static void reboot() throws Exception {
+	      String host = "157.52.202.18";
+	      int port = 20212;
+	      String user = "root";
+	      String password = "jPbHgZOP8";
+//	      String command = "ls -l";
+//	      String command = "./only-get-ip.sh";
+	      String command = " reboot ";
+	      String res = exeCommand(host,port,user,password,command);
+	  }
+	
 	public static String getNewVpn() throws Exception {
       String host = "157.52.202.18";
       int port = 20212;

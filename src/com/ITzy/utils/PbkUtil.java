@@ -23,11 +23,11 @@ public class PbkUtil {
 //            System.out.println(line);
             if(line.startsWith("PhoneNumber")){
                 vpn = line.split("=")[1];
-                System.out.println("vpn的IP:"+vpn);
+                System.out.println("原VPN>>>"+vpn+"<<<");
             }
         }
 
-        modifyFileContent(fileName,vpn,newVPN+"\n");
+        modifyFileContent(fileName,vpn,newVPN);
     }
 
     /**
@@ -46,9 +46,12 @@ public class PbkUtil {
             while ((line = raf.readLine()) != null) {
                 final long ponit = raf.getFilePointer();
                 if(line.contains(oldstr)){
-                    String str=line.replace(oldstr, newStr);
+//                	String oldVPN = line.split("=")[1];
+                	line = line.replaceAll(oldstr, newStr);
+                	String str= "PhoneNumber="+newStr;
+                    System.out.println("最终-->"+line+"<--");
                     raf.seek(lastPoint);
-                    raf.writeBytes(str);
+                    raf.writeBytes(line);
                 }
                 lastPoint = ponit;
             }

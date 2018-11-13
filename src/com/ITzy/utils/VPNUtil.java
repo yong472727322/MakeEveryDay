@@ -28,8 +28,9 @@ public class VPNUtil {
 			//修改 拨号簿
 			PbkUtil.changeVPN(newVPN);
 			//重新连接
-			CMDUtil.connectVPN();
-			return true;
+			boolean connectVPN = CMDUtil.connectVPN();
+			
+			return connectVPN;
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -38,11 +39,14 @@ public class VPNUtil {
 	
 	public static void main(String [] args) throws Exception {
 		for(int i = 0 ; i < 10 ; i ++) {
-			changeIP();
-			System.out.println("切换成功，等待60秒。");
-			Thread.sleep(60000);
+			if(changeIP()) {
+				System.out.println(i+"切换成功，等待60秒。");
+				Thread.sleep(60000);
+				System.out.println("开始重新切换。。。");
+			}else {
+				changeIP();
+			}
 		}
-		
 	}
 	
 }
