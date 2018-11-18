@@ -2,6 +2,7 @@ package com.ITzy.dao;
 
 import java.io.IOException;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -14,8 +15,10 @@ import com.ITzy.entity.BIG;
 import com.ITzy.entity.FilesName;
 import com.ITzy.entity.HighConcurrency;
 import com.ITzy.entity.NameAndValue;
+import com.ITzy.utils.AmazonTask;
 import com.ITzy.utils.FirefoxReading;
 import com.ITzy.utils.GoogleReading;
+import com.ITzy.utils.HttpUtil;
 import com.ITzy.utils.ReadURL;
 import com.ITzy.utils.ReadVPNText;
 import com.ITzy.utils.ReadingAllCookiesGoogle;
@@ -70,7 +73,21 @@ public class AutomaticDataCollectionServlet extends HttpServlet {
 		 		//调用工具类  解析 VPN 账号 密码   
 				String  VPNS = ReadVPNText.ReadIngVPNText(VPN);	
 				//拿到超链接数据
-				List  DaTa = ReadURL.ReadIngVPNText(Data);
+//				List  DaTa = ReadURL.ReadIngVPNText(Data);
+				
+				
+				//TODO 请求服务器，获取任务
+				String url = "http://"+Data+"/task/getTaskForPC";
+				AmazonTask task = HttpUtil.sendGet(url);
+				List<Integer> sum = new  ArrayList<Integer>();
+				List<BIG> list =  new ArrayList<BIG>();
+				
+				List DaTa = new ArrayList();
+				list.add(new BIG(task.getUrl(), task.getProductName()));
+				sum.add(1);
+				DaTa.add(sum);
+				DaTa.add(list);
+	   	        
 				
 				   for(int x=0;x<DaTa.size();x++) {
 					      if(x==0) {
@@ -95,6 +112,8 @@ public class AutomaticDataCollectionServlet extends HttpServlet {
 						request.setAttribute("VPNS", VPNS);
 						//记录要刷单的网址
 						request.setAttribute("GUOJIA", GUOJIA);
+						//产品ASIN
+						request.setAttribute("asin", task.getAsin());
 						//要刷单的产品
 						request.setAttribute("Multithreading", Multithreading);
 						//刷单要开启的浏览器个数
@@ -142,6 +161,8 @@ public class AutomaticDataCollectionServlet extends HttpServlet {
 								request.setAttribute("VPNS", VPNS);
 								//记录要刷单的网址
 								request.setAttribute("GUOJIA", GUOJIA);
+								//产品ASIN
+								request.setAttribute("asin", task.getAsin());
 								//要刷单的产品
 								request.setAttribute("Multithreading", Multithreading);
 								//刷单要开启的浏览器个数

@@ -20,7 +20,7 @@ public class CMDUtil {
 			&& executeCMDconsole.contains("已连接")){
 			return true;
 		}
-		System.out.println("连接VPN---->"+executeCMDconsole);
+		System.out.println("连接VPN失败---->"+executeCMDconsole+"<------连接VPN失败");
 		return false;
 	}
 	

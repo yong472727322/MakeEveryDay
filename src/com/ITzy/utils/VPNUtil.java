@@ -29,6 +29,12 @@ public class VPNUtil {
 			PbkUtil.changeVPN(newVPN);
 			//重新连接
 			boolean connectVPN = CMDUtil.connectVPN();
+			int c = 0;
+			while(!connectVPN && c < 5) {
+				Thread.sleep(3000);
+				c ++;
+				connectVPN = CMDUtil.connectVPN();
+			}
 			
 			return connectVPN;
 		}catch (Exception e) {

@@ -149,6 +149,7 @@ public class FIXServlet extends HttpServlet {
 		String URL = (String) request.getAttribute("URL");
 		// 获取VPN信息
 		String VPNS = (String) request.getAttribute("VPNS");
+		String  ASIN = (String) request.getAttribute("asin");
 		// 获取网站的网址
 		String GUOJIA = (String) request.getAttribute("GUOJIA");
 		// 要刷单的产品
@@ -579,8 +580,34 @@ public class FIXServlet extends HttpServlet {
 					try {
 						for (int x = 0; x <= 0; x++) {
 							if (x == 0) {
-								WebElement aboutLink1 = GOG1.findElement(By.partialLinkText(brand[0]));
-								aboutLink1.click();
+								//结果列表
+								By id = By.id("s-results-list-atf");
+								WebElement findElement = GOG1.findElement(id);
+								if(null != findElement) {
+									WebElement targetElement = null;
+									By tagName = By.tagName("li");
+									List<WebElement> findElements = findElement.findElements(tagName);
+									if(!findElements.isEmpty()){
+										for(WebElement element : findElements) {
+											String asin = element.getAttribute("data-asin");
+											if(asin.trim().equalsIgnoreCase(ASIN)) {
+												targetElement = element;
+												break;
+											}
+										}
+									}
+									if(null != targetElement) {
+										By tagName2 = By.tagName("a");
+										List<WebElement> aaa = targetElement.findElements(tagName2);
+										if(!aaa.isEmpty()) {
+											WebElement webElement = aaa.get(0);
+											webElement.click();
+											continue;
+										}
+									}
+									WebElement aboutLink1 = GOG1.findElement(By.partialLinkText(brand[0]));
+									aboutLink1.click();
+								}
 							}
 						}
 					} catch (TimeoutException e) {
@@ -599,7 +626,7 @@ public class FIXServlet extends HttpServlet {
 
 					} catch (NoSuchElementException e) {
 						try {
-							System.out.println("产品搜索失败");
+							System.out.println("1产品搜索失败");
 							// 调用切换IP代码
 							SwitchIP(VPNS);
 							for (int x = 0; x <= 0; x++) {
@@ -609,7 +636,7 @@ public class FIXServlet extends HttpServlet {
 								}
 							}
 						} catch (Exception e1) {
-							System.out.println("产品搜索失败");
+							System.out.println("2产品搜索失败");
 							Error = "Product search failed";
 							ErrorLogging( fail,Error);
 						}
@@ -669,7 +696,7 @@ public class FIXServlet extends HttpServlet {
 						}
 					} catch (NoSuchElementException e) {
 						try {
-							System.out.println("产品搜索失败");
+							System.out.println("3产品搜索失败");
 							for (int x = 0; x <= 1; x++) {
 								if (x == 0) {
 									WebElement aboutLink1 = GOG1.findElement(By.partialLinkText(brand[0]));
@@ -680,7 +707,7 @@ public class FIXServlet extends HttpServlet {
 								}
 							}
 						} catch (Exception e1) {
-							System.out.println("产品搜索失败");
+							System.out.println("4产品搜索失败");
 							Error = "Product search failed";
 							ErrorLogging( fail,Error);
 						}
@@ -751,7 +778,7 @@ public class FIXServlet extends HttpServlet {
 
 					} catch (NoSuchElementException e) {
 						try {
-							System.out.println("产品搜索失败");
+							System.out.println("5产品搜索失败");
 							for (int x = 0; x <= 2; x++) {
 								if (x == 0) {
 									WebElement aboutLink1 = GOG1.findElement(By.partialLinkText(brand[0]));
@@ -765,7 +792,7 @@ public class FIXServlet extends HttpServlet {
 								}
 							}
 						} catch (Exception e1) {
-							System.out.println("产品搜索失败");
+							System.out.println("6产品搜索失败");
 							Error = "Product search failed";
 							ErrorLogging( fail,Error);
 						}
@@ -848,7 +875,7 @@ public class FIXServlet extends HttpServlet {
 					} catch (NoSuchElementException e) {
 
 						try {
-							System.out.println("产品搜索失败");
+							System.out.println("7产品搜索失败");
 
 							for (int x = 0; x <= 3; x++) {
 								if (x == 0) {
@@ -866,7 +893,7 @@ public class FIXServlet extends HttpServlet {
 								}
 							}
 						} catch (Exception e1) {
-							System.out.println("产品搜索失败");
+							System.out.println("8产品搜索失败");
 							Error = "Product search failed";
 							ErrorLogging( fail,Error);
 						}
@@ -960,7 +987,7 @@ public class FIXServlet extends HttpServlet {
 						}
 					} catch (NoSuchElementException e) {
 						try {
-							System.out.println("产品搜索失败");
+							System.out.println("9产品搜索失败");
 
 							for (int x = 0; x <= 4; x++) {
 								if (x == 0) {
@@ -981,7 +1008,7 @@ public class FIXServlet extends HttpServlet {
 								}
 							}
 						} catch (Exception e1) {
-							System.out.println("产品搜索失败");
+							System.out.println("10产品搜索失败");
 							Error = "Product search failed";
 							ErrorLogging( fail,Error);
 						}
@@ -1085,7 +1112,7 @@ public class FIXServlet extends HttpServlet {
 					} catch (NoSuchElementException e) {
 						try {
 
-							System.out.println("产品搜索失败");
+							System.out.println("11产品搜索失败");
 							for (int x = 0; x <= 5; x++) {
 								if (x == 0) {
 									WebElement aboutLink1 = GOG1.findElement(By.partialLinkText(brand[0]));
@@ -1108,7 +1135,7 @@ public class FIXServlet extends HttpServlet {
 								}
 							}
 						} catch (Exception e1) {
-							System.out.println("产品搜索失败");
+							System.out.println("12产品搜索失败");
 							Error = "Product search failed";
 							ErrorLogging( fail,Error);
 						}

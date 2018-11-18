@@ -141,7 +141,7 @@ sorter.init("table",1);
 		
        	 <br>
        	     <input type="text" Name="gogle" placeholder="Gogle 启动脚本地址" required=""/>	    
-       	     <input type="text" Name="Data" placeholder="点击链接—路径地址" required=""/>	                        
+       	     <input type="text" Name="Data" placeholder="服务器地址 例如：50.116.16.192:51819" required=""/>	                        
        	     <input type="text" Name="URL" placeholder="账号—密码-cookies—路径地址" required=""/>
        	     <input type="text" Name="VPN" placeholder="VPN地址 ：TXT文本示例 ： 链接名  账号  密码  " required=""/>
        	     <input type="text" Name="succeed" placeholder="日志记录成功—路径地址" required=""/>

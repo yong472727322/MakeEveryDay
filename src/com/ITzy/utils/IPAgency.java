@@ -7,38 +7,38 @@ public class IPAgency {
 		GodOperation("test");
 	}
 	 public static void GodOperation(String VPNS) throws Exception {
-//		 int x=0;
-//		  VPN = VPNS.split(" ");
-//			    //断开IP连接
-//		        cutAdsl(VPN[0]); 
-//		        Thread.sleep(2000);  
-//		       //重新连接分配一个新的IP  		        
-//		       while(true) {
-//		    	  boolean TEST =  BUGTEST();
-//		    	  if(TEST == true) {
-//		    		  break;
-//		    	  }
-//		    	  x++;
-//		    	  if(x==30) {
-//		    		  System.err.println("IP切换进入死循环...");
-//		    		  Thread.sleep(2000);  
-//		    		  System.err.println("即将跳出死循环...");
-//		    		  break;
-//		    	  }
-//		       }
-//		       Thread.sleep(2000);    
-		 int c = 0;
-		 boolean changeIP = VPNUtil.changeIP();
-		 while(!changeIP) {
-			 c ++;
-			 System.err.println("切换失败，重新换。。。");
-			 changeIP = VPNUtil.changeIP();
-			 Thread.sleep(2000);
-			 if(c > 20) {
-				 System.err.println("失败超过20次，重启服务器。。。");
-				 SSHLinuxUtil.reboot();
-			 }
-		 }
+		 int x=0;
+		  VPN = VPNS.split(" ");
+			    //断开IP连接
+		        cutAdsl(VPN[0]); 
+		        Thread.sleep(2000);  
+		       //重新连接分配一个新的IP  		        
+		       while(true) {
+		    	  boolean TEST =  BUGTEST();
+		    	  if(TEST == true) {
+		    		  break;
+		    	  }
+		    	  x++;
+		    	  if(x==30) {
+		    		  System.err.println("IP切换进入死循环...");
+		    		  Thread.sleep(2000);  
+		    		  System.err.println("即将跳出死循环...");
+		    		  break;
+		    	  }
+		       }
+		       Thread.sleep(2000);    
+//		 int c = 0;
+//		 boolean changeIP = VPNUtil.changeIP();
+//		 while(!changeIP) {
+//			 c ++;
+//			 System.err.println("切换失败，重新换。。。");
+//			 changeIP = VPNUtil.changeIP();
+//			 Thread.sleep(2000);
+//			 if(c > 20) {
+//				 System.err.println("失败超过20次，重启服务器。。。");
+//				 SSHLinuxUtil.reboot();
+//			 }
+//		 }
 	 }
 	
 	public static boolean BUGTEST() throws Exception {
@@ -52,8 +52,9 @@ public class IPAgency {
     public static String executeCmd(String strCmd) throws Exception {  
         Process p = Runtime.getRuntime().exec("cmd /c " + strCmd);  
         StringBuilder sbCmd = new StringBuilder();  
-        BufferedReader br = new BufferedReader(new InputStreamReader(p  
-                .getInputStream()));  
+//        BufferedReader br = new BufferedReader(new InputStreamReader(p  
+//                .getInputStream()));  
+        BufferedReader br=new BufferedReader(new InputStreamReader(p.getInputStream(),"gbk"));
         String line;  
         while ((line = br.readLine()) != null) {  
             sbCmd.append(line + "\n");  
